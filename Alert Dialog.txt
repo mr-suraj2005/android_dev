@@ -1,0 +1,69 @@
+//aikhane likhle ami jokhon ii app ta open korbo tokhon ii alert dialog box ta khule jabe
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Terms and conditions");
+        alertDialog.setIcon(R.drawable.baseline_info_24);
+        alertDialog.setMessage("Have you read all the terms and conditions?");
+        alertDialog.setButton("yes, I have all terms and condtinions", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MainActivity.this, "You have accepted the terms and conditions", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //aikhane alert dialog box ta show koracchi....aita na likhle alert dialog box ta show korbe na
+        //aita matter kore aita k kothai likhalm
+        alertDialog.show();
+
+
+        //double button alert dialog box and triple bittton alert dialog box
+        //double button alert dialog box
+        AlertDialog.Builder deldialog = new AlertDialog.Builder(MainActivity.this);
+        deldialog.setTitle("Delete");
+        deldialog.setIcon(R.drawable.baseline_delete_24);
+        deldialog.setMessage("Are you sure want to delete?");
+        deldialog.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MainActivity.this, "Deleted successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+        deldialog.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MainActivity.this, "Deleted Unsuccessfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+        deldialog.show();
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    //aita k khali 1st activity tei likhbo bss
+
+
+
+    public void onBackPressed() {
+        AlertDialog.Builder exitdialog = new AlertDialog.Builder(MainActivity.this);
+        exitdialog.setTitle("Exit");
+        exitdialog.setIcon(R.drawable.baseline_exit_to_app_24);
+        exitdialog.setMessage("Are you sure want to exit");
+        exitdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MainActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
+            }
+        });
+        exitdialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                MainActivity.super.onBackPressed();
+                // katar jonno aita use hoi
+            }
+        });
+        exitdialog.setNeutralButton("Cncel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MainActivity.this, "Operation Cancelled", Toast.LENGTH_SHORT).show();
+            }
+        });
+        exitdialog.show();
