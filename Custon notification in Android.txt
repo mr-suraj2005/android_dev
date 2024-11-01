@@ -1,0 +1,109 @@
+package com.example.notificationmanager;
+
+import static android.provider.MediaStore.Images.Media.getBitmap;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+    private static final String Channel_id="My channel";
+    private static final int NOTIFIACTION_id=100;
+    private static final int req_code=100;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+
+        //in notification it need bitmap instead of png
+        //so we will convert drawable to bit drawable and then to bitmap.
+
+
+        Drawable drawable= ResourcesCompat.getDrawable(getResources(),R.drawable.icon,null);
+        Drawable drawable1= ResourcesCompat.getDrawable(getResources(),R.drawable.images,null);
+
+
+        // This is drawable
+        // Bitmap is a class that stores image just like a variable stores values
+
+
+        BitmapDrawable bitmapDrawable= (BitmapDrawable) drawable;
+        BitmapDrawable bitmapDrawable1= (BitmapDrawable) drawable1;
+
+        //It is directly typecasted to bitmap drawable
+
+        Bitmap largeIcon= bitmapDrawable.getBitmap();
+        Bitmap largeIcon1= bitmapDrawable1.getBitmap();
+
+
+        Notification notification;
+        Intent iNotify= new Intent(getApplicationContext(),MainActivity.class);
+        iNotify.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pi= PendingIntent.getActivity(this,req_code,iNotify,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationManager nm= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        //Big Picture style
+        Notification.BigPictureStyle bigPictureStyle= new Notification.BigPictureStyle()
+        .bigPicture(((BitmapDrawable) (ResourcesCompat.getDrawable(getResources(),R.drawable.images,null))).getBitmap())
+                .bigLargeIcon(largeIcon1)
+                .setBigContentTitle("Sent by Mr.SURAJ")
+                .setSummaryText("Image Message");
+        /*
+        //Inbox Style
+        Notification.InboxStyle inboxStyle= new Notification.InboxStyle()
+                .addLine("Line 1")
+                .addLine("Line 2")
+                .addLine("Line 3")
+                .addLine("Line 4")
+                .setBigContentTitle("Full message")
+                .setSummaryText("Message Summary");
+        */
+
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            notification= new Notification.Builder(this)
+                    .setLargeIcon(largeIcon)
+                    .setSmallIcon(R.drawable.icon)
+                    .setContentText("Hii")
+                    .setSubText("New Message from Suraj")
+                    .setChannelId(Channel_id)
+                    // intent use korlam karon ami kichu work pass korbo notification ta clock korle
+                    .setContentIntent(pi)
+                    .setStyle(bigPictureStyle)
+                    .build();
+            nm.createNotificationChannel(new NotificationChannel(Channel_id,"My channel",NotificationManager.IMPORTANCE_HIGH));
+            //IMPORTANCE HIGH is used to priotise notification. It should be kept with high only.
+        }
+        else {
+            notification= new Notification.Builder(this)
+                    .setLargeIcon(largeIcon)
+                    .setSmallIcon(R.drawable.icon)
+                    .setContentText("Hii")
+                    .setSubText("New Message from Suraj")
+                    .setContentIntent(pi)
+                    .setStyle(bigPictureStyle)
+                    .build();
+        }
+        // Ato ta obdhi code ta jekhane khusi korte pari
+        nm.notify(NOTIFIACTION_id,notification);
+        // But ai particular line ta jeikhane notification show koranor iccha ache seikhanei type kore dilei kaaj hoya jabe
+    }
+}

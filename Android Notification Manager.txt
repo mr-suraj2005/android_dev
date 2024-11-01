@@ -1,0 +1,48 @@
+ private static final String Channel_id="My channel";
+    private static final int NOTIFIACTION_id=100;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+Drawable drawable= ResourcesCompat.getDrawable(getResources(),R.drawable.icon,null);
+
+
+        // This is drawable
+        // Bitmap is a class that stores image just like a variable stores values
+
+
+        BitmapDrawable bitmapDrawable= (BitmapDrawable) drawable;
+
+
+        //It is directly typecasted to bitmap drawable
+
+        Bitmap largeIcon= bitmapDrawable.getBitmap();
+        Notification notification;
+        NotificationManager nm= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            notification= new Notification.Builder(this)
+                    .setLargeIcon(largeIcon)
+                    .setSmallIcon(R.drawable.icon)
+                    .setContentText("New Message")
+                    .setSubText("New Message from Rahul")
+                    .setChannelId(Channel_id)
+                    .build();
+            nm.createNotificationChannel(new NotificationChannel(Channel_id,"My channel",NotificationManager.IMPORTANCE_HIGH));
+            //IMPORTANCE HIGH is used to priotise notification. It should be kept with high only.
+        }
+        else {
+            notification= new Notification.Builder(this)
+                    .setLargeIcon(largeIcon)
+                    .setSmallIcon(R.drawable.icon)
+                    .setContentText("New Message")
+                    .setSubText("New Message from Rahul")
+                    .build();
+        }
+        // Ato ta obdhi code ta jekhane khusi korte pari
+        nm.notify(NOTIFIACTION_id,notification);
+        // But ai particular line ta jeikhane notification show koranor iccha ache seikhanei type kore dilei kaaj hoya jabe
+    }
+}

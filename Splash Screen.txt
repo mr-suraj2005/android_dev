@@ -1,0 +1,18 @@
+/*      aikhne amra parallel threading ba unsynchronus way use korlam jar mane hocche...
+    ....2to process simultaneously pasha pashi cholbe*/
+    //   handler method ee ami timer set kore dilm
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Intent class banalam an tarpor kotha theke kothai jabo seta dilm jemn main theke splashActivity te jacchi
+                Intent intent= new Intent(MainActivity.this,SplashActivity.class);
+                // start activity na korle process ta start hobe na
+                startActivity(intent);
+                //aikhane ebr ami finish korbo kaaj ta tai finish funtion use korchi
+                finish();
+            }
+        },4000);
+        //aikhane amr screen ta k delay koracchi jate valo kore screen ta dekhte pai
+        //and aita millisecond ee store hoi
