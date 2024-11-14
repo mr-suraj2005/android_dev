@@ -1,0 +1,4 @@
+android:duration= "1000" - the duration in which animation is completed 
+android:fillAfter= "true" - defines whether the view should be visible or not at the end of the animation
+android:interpolator= "@android:anim/linear_interpolator" - refers to the rate of change in animation.
+android:startOffset= "2000" - refers to the waiting time before an animation starts 
