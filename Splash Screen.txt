@@ -2,7 +2,7 @@
     ....2to process simultaneously pasha pashi cholbe*/
     //   handler method ee ami timer set kore dilm
 
-
+// aita k setContentView er niche likhte hobe 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
