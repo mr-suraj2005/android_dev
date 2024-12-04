@@ -1,4 +1,4 @@
-// to create an xml file in layout tab
+// create an xml file in layout tab
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
