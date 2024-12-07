@@ -50,3 +50,12 @@ public class MainActivity extends AppCompatActivity {
 // at the starting of AndroidManifest XML
 
 <uses-permission android:name="android.permission.INTERNET" />
+
+
+        // myWebView is the WebView instance.
+        
+        //webSettings is obtained from myWebView to configure its settings.
+       
+        //setJavaScriptEnabled(true) enables JavaScript in the WebView.
+        
+        //Finally, myWebView.loadUrl("https://www.example.com"); loads the specified URL in the WebView.
