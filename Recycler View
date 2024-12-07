@@ -1,0 +1,209 @@
+
+// In Activity_Main
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+
+// In MainActivity.java class
+
+package com.example.recyclerview;
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    //agee java class create korlam constructor use korlam dia ai process ta korchi
+    ArrayList<ContactModel> arrayList = new ArrayList<>();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        recyclerView = findViewById(R.id.recyclerContact);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ContactModel Model = new ContactModel(R.drawable.contact, "A", "81768");
+        arrayList.add(Model);
+        ContactModel Model2 = new ContactModel(R.drawable.images, "B", "1234567");
+        arrayList.add(Model2);
+        ContactModel Model3 = new ContactModel(R.drawable.images2, "C", "815786");
+        arrayList.add(Model3);
+        ContactModel Model4 = new ContactModel(R.drawable.images3, "D", "759369");
+        arrayList.add(Model4);
+        ContactModel Model5 = new ContactModel(R.drawable.images4, "E", "9128613");
+        arrayList.add(Model5);
+        ContactModel Model6 = new ContactModel(R.drawable.images5, "F", "436820");
+        arrayList.add(Model6);
+        ContactModel Model7 = new ContactModel(R.drawable.contact, "A", "81768");
+        arrayList.add(Model7);
+        ContactModel Model8 = new ContactModel(R.drawable.images, "B", "1234567");
+        arrayList.add(Model8);
+        ContactModel Model9 = new ContactModel(R.drawable.images2, "C", "815786");
+        arrayList.add(Model9);
+        ContactModel Model10 = new ContactModel(R.drawable.images3, "D", "759369");
+        arrayList.add(Model10);
+        ContactModel Model11 = new ContactModel(R.drawable.images4, "E", "9128613");
+        arrayList.add(Model11);
+        ContactModel Model12 = new ContactModel(R.drawable.images5, "F", "436820");
+        arrayList.add(Model12);
+        //ai process ta ami sobar last ee korbo t ana hole array te amr 0 value chole jabe
+        RecyclerContactAdapter adapter= new RecyclerContactAdapter(this,arrayList);
+        recyclerView.setAdapter(adapter);    
+    }
+}
+
+//In another XML file named it as files
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ContactLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#00FFFFFF"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="25dp">
+
+        <LinearLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageContact"
+                android:layout_width="110dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:contentDescription="Contact Image"
+                app:srcCompat="@drawable/contact" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif-monospace"
+                    android:text="Contact"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif-monospace"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
+
+//In another java class named it as model
+
+package com.example.recyclerview;
+
+public class ContactModel {
+    //ai class ta create korechi kano na aikhane amder k constructor create kore xml file ee ja ja ache jamn textView imageView seigulo ka call korte hobe
+    int image;
+    String name,num;
+    public ContactModel(int image, String name, String num){
+        this.image=image;
+        this.name=name;
+        this.num=num;
+    }
+}
+
+// In another java class named it as adapter 
+
+package com.example.recyclerview;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
+public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContactAdapter.ViewHolder> {
+    Context context;
+    ArrayList<ContactModel> arrayList;
+    RecyclerContactAdapter(Context context, ArrayList<ContactModel> arrayList){
+        this.context=context;
+        this.arrayList=arrayList;
+    }
+    @Override
+    //Aikhane amr viewholder bole class ta create korlam karon jokhon ami scoll up korbo jeita amr age chilo seta delete hoya notun asbe tar jonno aita kora
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //inflate use korchi karon 1kta layout er sathe r1ta layout k connect korlam
+       View view = LayoutInflater.from(context).inflate(R.layout.contact_row,parent,false);
+       ViewHolder holder = new ViewHolder(view);
+        return holder;
+    }
+//  aikhane ebar data gulo set korte parbo
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.txt.setText(arrayList.get(position).name);
+        holder.txtnum.setText(arrayList.get(position).num);
+        holder.img.setImageResource(arrayList.get(position).image);
+    }
+
+    @Override
+    public int getItemCount() {
+        return arrayList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView txt,txtnum;
+        ImageView img;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            // aikhane amr normally findviewby id ta use kora jabe na bcoz amra akhn helping class ee achi toh amake itemView er pichon dhore findviewbyid ta use korta hobe mane directly amra findviewbyid ta use kora jabe na
+            txt=itemView.findViewById(R.id.Contact);
+            txtnum=itemView.findViewById(R.id.number);
+            img=itemView.findViewById(R.id.imageContact);
+        }
+    }
+}
